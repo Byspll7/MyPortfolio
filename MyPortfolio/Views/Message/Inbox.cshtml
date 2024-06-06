@@ -1,0 +1,60 @@
+﻿@model List<Message>
+@{
+    ViewData["Title"] = "Inbox";
+    Layout = "~/Views/Layout/Index.cshtml";
+}
+
+<div class="content">
+	<div class="container-fluid">
+		<h4 class="page-title">Messages</h4>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="card-title">New Messages</div>
+					</div>
+					<div class="card-body">
+						<div class="card-sub">
+							You can perform operations related to messages from the panel below.
+						</div>
+						<table class="table mt-3">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Sender</th>
+									<th scope="col">Subject</th>
+									<th scope="col">Date</th>
+									<th scope="col">Open Message</th>
+									<th scope="col">Status</th>
+									<th scope="col">Delete</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model)
+								{
+									<tr>
+										<td>@item.MessageID</td>
+										<td>@item.NameSurname</td>
+										<td>@item.Subject</td>
+										<td>@item.SendDate.ToShortDateString()</td>
+										<td><a href="/Message/MesageDetail/@item.MessageID" class="btn btn-warning">Open Message</a></td>
+									     @if(item.IsRead==true)
+										{
+											<td><a href="/Message/ChangeIsReadFalse/@item.MessageID" class="btn btn-danger">Unread</a></td>
+										}
+										else
+										{
+											<td><a href="/Message/ChangeIsReadToTrue/@item.MessageID" class="btn btn-info">Read</a></td>
+										}
+										<td><a href="/Message/DeleteMessage/@item.MessageID" class="btn btn-danger">Delete</a></td>								
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
